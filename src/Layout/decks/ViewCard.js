@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { deleteCard } from "../../utils/api";
 
 
-export const Card = ({ card }) => {
+export const ViewCard = ({ card }) => {
     const { deckId } = useParams();
     const history = useHistory();
 
@@ -37,4 +37,4 @@ export const Card = ({ card }) => {
     );
 }
 
-export default Card;
+export default ViewCard;

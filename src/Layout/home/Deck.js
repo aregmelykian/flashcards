@@ -1,28 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { readDeck, deleteDeck } from "../../utils/api";
-import ErrorMessage from "../ErrorMessage";
+import { deleteDeck } from "../../utils/api";
 
 
 
 export const Deck = ({ deck }) => {
-    const [cards, setCards] = useState([]);
-    const [error, setError] = useState(undefined);
-
     const history = useHistory();
-
-    useEffect(() => {
-        const abortController = new AbortController();
-
-        readDeck(deck.id, abortController.signal).then((resp) => setCards(resp.cards)).catch(setError);
-
-        return () => abortController.abort();
-    }, []);
-
-    if (error) {
-        return <ErrorMessage error={error} />;
-    }
 
     const handleDelete = async (id) => {
         const result = window.confirm("Delete this deck?");
@@ -42,7 +26,7 @@ export const Deck = ({ deck }) => {
                                 <h5 className="card-title">{deck.name}</h5>
                             </div>
                             <div className="col-4">
-                                <p style={{float: "right"}}>{cards.length} cards</p>
+                                <p style={{float: "right"}}>{deck.cards.length} cards</p>
                             </div>
                         </div>
                     </div>

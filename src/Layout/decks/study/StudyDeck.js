@@ -4,12 +4,11 @@ import { useParams, Link } from "react-router-dom";
 import { readDeck } from "../../../utils/api";
 import ErrorMessage from "../../ErrorMessage";
 import Breadcrumbs from "../../Breadcrumbs";
-import Card from "./StudyCard";
+import StudyCard from "./StudyCard";
 
 export const StudyDeck = () => {
-    const [deck, setDeck] = useState({ cards: [] });
+    const [deck, setDeck] = useState({ cards: [] }); 
     const [error, setError] = useState(undefined);
-    const [cardId, setCardId] = useState(0);
     const { deckId } = useParams();
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export const StudyDeck = () => {
             <div>
                 <Breadcrumbs crumbs={[{name: deck.name, link: `/decks/${deck.id}`}, {name: "Study", link: null}]}/>
                 <h1>{deck.name}: Study</h1>
-                <Card cards={deck.cards} cardId={cardId} setCardId={setCardId} />
+                <StudyCard cards={deck.cards} />
             </div>
         );
     } else {

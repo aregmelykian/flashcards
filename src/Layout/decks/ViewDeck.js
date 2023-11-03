@@ -4,7 +4,7 @@ import { useParams, Link, useHistory } from "react-router-dom";
 import { readDeck, deleteDeck } from "../../utils/api";
 import ErrorMessage from "../ErrorMessage";
 import Breadcrumbs from "../Breadcrumbs";
-import Card from "./ViewCard"
+import ViewCard from "./ViewCard"
 
 export const ViewDeck = () => {
     const [deck, setDeck] = useState({ cards: [] });
@@ -51,7 +51,7 @@ export const ViewDeck = () => {
                 <button onClick={() => handleDeleteDeck(deck.id)} className="btn btn-danger" style={{float: "right", margin: "5px"}}>Delete</button>
                 
                 <h2 style={{marginTop: "20px"}}>Cards</h2>
-                {deck.cards.map((card, index) => <Card key={index} card={card} />)}
+                {deck.cards.map((card, index) => <ViewCard key={index} card={card} />)}
             </div>
         );
     } else {
