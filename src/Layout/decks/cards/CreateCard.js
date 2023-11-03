@@ -9,7 +9,6 @@ import CardForm from "./CardForm"
 
 export const CreateDeck = () => {
     const [deck, setDeck] = useState({ cards: [] });
-    const [newCardId, setNewCardId] = useState(0);
     const [error, setError] = useState(undefined);
 
     const { deckId } = useParams();
@@ -25,11 +24,7 @@ export const CreateDeck = () => {
     useEffect(() => {
         const abortController = new AbortController();
         
-        readDeck(deckId, abortController.signal).then(resp => {
-            setDeck(resp);
-            const newId = resp.cards.length > 0 ? Math.max(...resp.cards.map(card => card.id)) + 1 : 1;
-            setNewCardId(newId);
-        }).catch(setError);
+        readDeck(deckId, abortController.signal).then(setDeck).catch(setError);
 
         return () => abortController.abort();
     }, [deckId]);
@@ -53,9 +48,8 @@ export const CreateDeck = () => {
   
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await createCard(deckId, {...formData, deckId: deckId, id: newCardId});
+        await createCard(deckId, {...formData});
         setFormData({ ...initialFormState });
-        setNewCardId(current => current + 1);
     }
 
     if (deck.id) {
